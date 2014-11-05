@@ -3,6 +3,7 @@ package sometree;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FromListRemover {
@@ -47,8 +48,8 @@ public class FromListRemover {
             throw new IllegalArgumentException("N must be greater or equal 2");
         }
 
-        final List<T> repeatedNumbers = list.parallelStream().distinct()
-                .filter(number -> list.parallelStream().filter(element -> element.equals(number)).count() >= n).collect(Collectors.toList());
+        final Set<T> repeatedNumbers = list.parallelStream().distinct()
+                .filter(number -> list.parallelStream().filter(element -> Objects.equals(element, number)).count() >= n).collect(Collectors.toSet());
 
         list.removeAll(repeatedNumbers);
 
